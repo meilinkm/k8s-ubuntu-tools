@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-tools
+  labels:
+    app: ubuntu-tools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu-tools
+  template:
+    metadata:
+      labels:
+        app: ubuntu-tools
+    spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
+      containers:
+        - name: ubuntu-tools
+          image: mmeilink/ubuntu-tools:24.04
+          command: ["/bin/bash", "-c", "sleep infinity"]
+          tty: true
+          stdin: true
